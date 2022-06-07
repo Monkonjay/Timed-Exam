@@ -1,0 +1,30 @@
+#container {
+    background-color: burlywood;
+    width: 40%;
+    min-height: 700px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    font-family: Arial;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+
+    
+}
+
+#course {
+    text-align: center;
+    text-decoration: underline;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+
+#countDown {
+    margin-right: 10px;
+
+}
