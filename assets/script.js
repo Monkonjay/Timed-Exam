@@ -1,6 +1,6 @@
 var timerEl = document.getElementById('countdown');
 var quizEl = document.getElementById('question');
-
+var startBtn = document.querySelector('#start');
 // var timeLeft = 5;
 const quizDuration = 2;
 var timeLeft = quizDuration * 60;
