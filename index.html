@@ -13,14 +13,25 @@
 <body>
     <div id="container">
         
-        <h1 id="course">Quiz: Introduction to JavaScript</h1> 
+        <h1 id="course-title">Quiz: Introduction to JavaScript</h1> 
         <h2 id="countdown"></h2>
         
        
-        <p id="question"></p>
+        <div id="question-wrapper" class="hide"> 
+            <div id="question"></div>
 
-        <div class="card-footer">
-            <button id="start" class="btn">Start Quiz</button>
+            <!-- answers buttons -->
+            <div id="answer-buttons" class="btn-grid">
+                <div class="btn">Choice A</div>
+                <div class="btn">Choice B</div>
+                <div class="btn">Choice C</div>
+                <div class="btn">Choice D</div>
+            </div>
+        </div>
+
+        <div class="test_flow">
+            <button id="start_btn" class="start-btn btn">Start Quiz</button>
+            <button id="submit_btn" class="submit-btn btn hide">Submit</button>
         </div>
     </div>
 
