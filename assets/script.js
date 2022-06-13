@@ -3,6 +3,7 @@ var questionWrapperEl = document.getElementById('question-wrapper');
 var questionEl = document.getElementById('question');
 var answerBtnEl = document.getElementById('answer-buttons');
 var startBtn = document.querySelector('#start_btn');
+var submitBtn =  document.querySelector('#submit_btn');
 
 // display question randomly 
 let randomizeQuestions, currentQuestionPos;
@@ -45,39 +46,8 @@ function startQuiz () {
 
 
 function setQuestions() {
+    resetPage();
     displayQuestion(randomizeQuestions[currentQuestionPos]);
-
-    
-    // let questionNumber = 0;
-    // let quiz, quiz_status, question, selection, selections, answerA, answerB, answerC, answerD, correct = 0;
-
-
-    // // multidimensional array to store questions
-    // let questions = [
-    //     
-    //     ["What is the result of this expression: (5 + 6 ) * 10 ?", "110", "65", "56", "undefine", "A"],
-    //     ["Which of the following statement is true about comments?", "They are required for functions to work", "They are ignored during runtime", "They add style to the page", "They linked HTML to the javaScript code", "B"],
-    //     ["If g20 is an array of the world's 20 most industrial economies, how would you access the last index of g20?", "g20.last", "g20.length", "g20.last-1", "g20.length-1", "D"],
-    //     ["Which of the following data type cannot contain a value?", "string", "numbers", "null", "functions", "C"]
-    // ];
-
-
-    // function displayQuestion() {
-    //     let quiz = document.querySelector("#question");
-    //     question = questions[questionNumber][0];
-    //     answerA =  questions[questionNumber][1];
-    //     answerB =  questions[questionNumber][2];
-    //     answerC =  questions[questionNumber][3];
-    //     answerD =  questions[questionNumber][4];
-    
-    //     quiz.innerHTML = "<h3>"+question+"<h3>";
-    //     quiz.innerHTML += "<input type='radio' name = 'selections' value = 'A'> "+answerA+"<br>";
-    //     quiz.innerHTML += "<input type='radio' name = 'selections' value = 'B'> "+answerA+"<br>";
-    //     quiz.innerHTML += "<input type='radio' name = 'selections' value = 'C'> "+answerA+"<br>";
-    //     quiz.innerHTML += "<input type='radio' name = 'selections' value = 'D'> "+answerA+"<br>";
-        
-    // }
-
 }
 
 function displayQuestion(question) {
@@ -89,7 +59,7 @@ function displayQuestion(question) {
         if(answer.correct) {
             button.dataset.correct = answer.correct;
         }
-        button.addEventListener('click', selectAnswers);
+        button.addEventListener('click', selectAnswer);
         answerBtnEl.appendChild(button);
 
 
@@ -97,9 +67,19 @@ function displayQuestion(question) {
 
 }
 
+function resetPage() {
+    submitBtn.classList.add('hide');
+    while(answerBtnEl.firstChild) {
+        answerBtnEl.removeChild(answerBtnEl.firstChild)
+    }
+
+}
 
 
-function selectAnswers() {
+
+function selectAnswer(e) {
+    const buttonChoice = e.target.value;
+    const correct = buttonChoice.dataset.correct
 
 }
 
