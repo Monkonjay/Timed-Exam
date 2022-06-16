@@ -1,16 +1,20 @@
+// declare global variables for targeted elements
 var timerEl = document.getElementById('countdown');
 var questionWrapperEl = document.getElementById('question-wrapper');
 var questionEl = document.getElementById('question');
 var answerBtnEl = document.getElementById('answer-buttons');
 var startBtn = document.querySelector('#start_btn');
 var submitBtn =  document.querySelector('#submit_btn');
+var messageEl = document.getElementById('message');
 
-// display question randomly 
+// declare varibles to shuffle questions and determine question index
 let randomizeQuestions, currentQuestionPos;
 
+// set quiz duration in minutes then convert to seconds
 const quizDuration = 1;
 var timeLeft = quizDuration * 60;
 
+// use setInterval for countdown
 function countdown() {
 
     var timeInterval = setInterval(function() {
@@ -28,10 +32,8 @@ function countdown() {
             timerEl.textContent = " ";
         }
 
-    // set countdown interval    
-    }, 1000);
-
-   
+    // set countdown interval in miliseconds   
+    }, 1000);  
 }
 
 
@@ -51,20 +53,22 @@ function setQuestions() {
 }
 
 function displayQuestion(question) {
+
     questionEl.innerHTML = question.question;
     question.answers.forEach(answer => {
         const button = document.createElement('button');
         button.innerText = answer.text;
         button.classList.add('btn');
-        if(answer.correct) {
-            button.dataset.correct = answer.correct;
-        }
+        // if(answer.correct) {
+        //     button.dataset.correct = answer.correct;
+        // }
+        button.dataset.correct = answer.correct;
+        
+        
         button.addEventListener('click', selectAnswer);
         answerBtnEl.appendChild(button);
 
-
     })
-
 }
 
 function resetPage() {
@@ -72,15 +76,67 @@ function resetPage() {
     while(answerBtnEl.firstChild) {
         answerBtnEl.removeChild(answerBtnEl.firstChild)
     }
-
 }
 
 
-
 function selectAnswer(e) {
-    const buttonChoice = e.target.value;
-    const correct = buttonChoice.dataset.correct
+    // const buttonChoice = e.target.value;
+    // console.log(e);
+    const correct = e.target.dataset.correct;
+    var feedback = document.createElement('h2');
+    // var message = "";
 
+    // chkAnswer
+    if(correct==="true") {
+        
+        feedback.innerText = ("Correct!");
+        // messageEl.appendChild(chk);
+
+    }else {
+        feedback.innerText = ("Wrong");
+        // messageEl.appendChild(chk);
+    }
+    // console.log(message);
+    messageEl.appendChild(feedback);
+    setTimeout(function() {
+        messageEl.classList.add('hide');
+    },500);
+   
+
+
+
+    if (randomizeQuestions.length > currentQuestionPos + 1) {
+        currentQuestionPos++;
+        setTimeout(setQuestions, 500); 
+        // submitBtn.classList.remove('hide');
+    }
+
+
+    // setStatusClass(document.body, correct);
+    // Array.from(answerBtnEl.children).forEach(button => {
+    //     setStatusClass(button, button.dataset.correct)
+    // })
+    // if (randomizeQuestions.length >currentQuestionPos + 1) {
+    //     submitBtn.classList.remove('hide');
+    // } else {
+    //     submitBtn.innerText = 'Restart';
+    //     submitBtn.classList.remove('hide');
+    // }
+}
+
+
+function setStatusClass(element, correct) {
+    clearStatusClass(element);
+    if (correct) {
+        element.classList.add('correct');
+    } else {
+        element.classList.add('wrong');
+    }
+}
+
+function clearStatusClass(element) {
+    element.ClassList.remove('correct');
+    element.ClassList.remove('wrong');
 }
 
 const questions = [
@@ -107,10 +163,10 @@ const questions = [
     {
         question: 'Which of the following statement is true about comments?',
         answers: [
-            {text: 'They are required for functions to work', correct: false},
-            {text: 'They are ignored during runtime', correct: true},
-            {text: "They add style to the page", correct: false},
-            {text: 'They linked HTML to the javaScript code', correct: false}
+            {text: 'They are required for functions to work.', correct: false},
+            {text: 'They are ignored during runtime.', correct: true},
+            {text: "They add style to the page.", correct: false},
+            {text: 'They linked HTML to the javaScript code.', correct: false}
         ]
     },
 
@@ -133,8 +189,10 @@ const questions = [
             {text: 'function', correct: false}
         ]
     }
-
-
 ]
 
 startBtn.addEventListener('click', startQuiz);
+submitBtn.addEventListener('click', () => {
+    currentQuestionPos++;
+    setQuestions();
+})

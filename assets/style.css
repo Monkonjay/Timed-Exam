@@ -34,9 +34,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  align-items: center;
-
-    
+  align-items: center; 
 }
 
 #course-title {
@@ -65,8 +63,13 @@ body {
   line-height: 22px;
   margin: 16px 16px 16px 20px;
   padding: 14px 34px;
-  text-align: center;
+  text-align: left;
   cursor: pointer;
+  line-height: 1.6;
+}
+
+.btn:hover {
+  background-color: gold;
 }
   
 /* button[disabled] {
@@ -89,9 +92,13 @@ body {
 .start-btn, .submit-btn {
   font-size: 1.5rem;
   font-weight: bold;
-  
 }
 
 .hide {
   display: none;
+}
+
+hr.dashed {
+  border-top: 8px solid #bbb;
+  border-radius: 5px;
 }
