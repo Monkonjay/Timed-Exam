@@ -11,7 +11,7 @@ var messageEl = document.getElementById('message');
 let randomizeQuestions, currentQuestionPos;
 
 // set quiz duration in minutes then convert to seconds
-const quizDuration = 1;
+const quizDuration = 0.5;
 var timeLeft = quizDuration * 60;
 
 // use setInterval for countdown
@@ -30,6 +30,7 @@ function countdown() {
         if (timeLeft === 0) {
             clearInterval(timeInterval);
             timerEl.textContent = " ";
+            results();
         }
 
     // set countdown interval in miliseconds   
@@ -94,12 +95,15 @@ function selectAnswer(e) {
 
     }else {
         feedback.innerText = ("Wrong");
+        // add 10 second penalty for wrong answer
+        timeLeft -= 10;
         // messageEl.appendChild(chk);
     }
     // console.log(message);
     messageEl.appendChild(feedback);
     setTimeout(function() {
-        messageEl.classList.add('hide');
+        // feedback.classList.add('hide');
+        feedback.remove();
     },500);
    
 
@@ -191,8 +195,12 @@ const questions = [
     }
 ]
 
+function results() {
+    questionWrapperEl.classList.add('hide');
+}
+
 startBtn.addEventListener('click', startQuiz);
-submitBtn.addEventListener('click', () => {
-    currentQuestionPos++;
-    setQuestions();
-})
+// submitBtn.addEventListener('click', () => {
+//     currentQuestionPos++;
+//     setQuestions();
+// })
