@@ -71,15 +71,10 @@ body {
 .btn:hover {
   background-color: gold;
 }
-  
-/* button[disabled] {
-  cursor: default;
-  background: #c0c7cf;
-} */
 
 .btn-grid {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  /* grid-template-columns: repeat(2, auto); */
 }
 
 #question {
@@ -98,7 +93,15 @@ body {
   display: none;
 }
 
-hr.dashed {
+/* hr.dashed {
   border-top: 8px solid #bbb;
   border-radius: 5px;
+} */
+
+#score, #collect-initials {
+  font-size: 20px;
+  font-weight: bold;
+  align-self: flex-start;
+  padding-left: 25px;
 }
+

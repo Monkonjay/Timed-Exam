@@ -7,6 +7,10 @@ var startBtn = document.querySelector('#start_btn');
 var submitBtn =  document.querySelector('#submit_btn');
 var messageEl = document.getElementById('message');
 
+// variable to keep tract score
+var scoreEl =  document.querySelector('#score');
+var score = 0;
+
 // declare varibles to shuffle questions and determine question index
 let randomizeQuestions, currentQuestionPos;
 
@@ -89,10 +93,11 @@ function selectAnswer(e) {
 
     // chkAnswer
     if(correct==="true") {
-        
+        score += 2;
         feedback.innerText = ("Correct!");
+        // console.log(`your score is ${score}`);
         // messageEl.appendChild(chk);
-
+        
     }else {
         feedback.innerText = ("Wrong");
         // add 10 second penalty for wrong answer
@@ -126,7 +131,7 @@ function selectAnswer(e) {
     //     submitBtn.classList.remove('hide');
     // } else {
     //     submitBtn.innerText = 'Restart';
-    //     submitBtn.classList.remove('hide');
+   
     // }
 }
 
@@ -149,50 +154,50 @@ const questions = [
     {
         question: 'Which of the following is not a keyword for javaScript variable declaration?',
         answers: [
-            {text: 'let', correct: false},
-            {text: 'var', correct: false},
-            {text: 'make', correct: true},
-            {text: 'const', correct: false}
+            {text: 'A. let', correct: false},
+            {text: 'B. var', correct: false},
+            {text: 'C. make', correct: true},
+            {text: 'D. const', correct: false}
         ]
     },
 
     {
         question: 'What is the result of this expression: (5 + 6 ) * 10 ?',
         answers: [
-            {text: '110', correct: true},
-            {text: '65', correct: false},
-            {text: '56', correct: false},
-            {text: 'undefined', correct: false}
+            {text: 'A. 110', correct: true},
+            {text: 'B. 65', correct: false},
+            {text: 'C. 56', correct: false},
+            {text: 'D. undefined', correct: false}
         ]
     },
 
     {
         question: 'Which of the following statement is true about comments?',
         answers: [
-            {text: 'They are required for functions to work.', correct: false},
-            {text: 'They are ignored during runtime.', correct: true},
-            {text: "They add style to the page.", correct: false},
-            {text: 'They linked HTML to the javaScript code.', correct: false}
+            {text: 'A. They are required for functions to work.', correct: false},
+            {text: 'B. They are ignored during runtime.', correct: true},
+            {text: "C. They add style to the page.", correct: false},
+            {text: 'D. They linked HTML to the javaScript code.', correct: false}
         ]
     },
 
     {
         question: "If g20 is an array of the world's 20 most industrial economies, how would you access the last index of g20?",
         answers: [
-            {text: 'g20.last', correct: false},
-            {text: 'g20.length', correct: false},
-            {text: 'g20.last-1', correct: false},
-            {text: 'g20.length-1', correct: true}
+            {text: 'A. g20.last', correct: false},
+            {text: 'B. g20.length', correct: false},
+            {text: 'C. g20.last-1', correct: false},
+            {text: 'D. g20.length-1', correct: true}
         ]
     },
 
     {
         question: "Which of the following data type cannot contain a value?",
         answers: [
-            {text: 'string', correct: false},
-            {text: 'number', correct: false},
-            {text: 'null', correct: true},
-            {text: 'function', correct: false}
+            {text: 'A. string', correct: false},
+            {text: 'B. number', correct: false},
+            {text: 'C. null', correct: true},
+            {text: 'D. function', correct: false}
         ]
     }
 ]
@@ -200,6 +205,16 @@ const questions = [
 function showResults() {
     questionWrapperEl.classList.add('hide');
     timerEl.classList.add('hide');
+    var yourScore = document.createElement('h2');
+    yourScore.innerText = `Your Total Score:  ${score}/10`;
+    // console.log(yourScore.innerText);
+    
+    
+    scoreEl.appendChild(yourScore);
+    let initialEl = document.querySelector('#collect-initials')
+    initialEl.classList.remove('hide');
+    submitBtn.classList.remove('hide');
+
 }
 
 startBtn.addEventListener('click', startQuiz);
