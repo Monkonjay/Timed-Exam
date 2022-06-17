@@ -136,19 +136,19 @@ function selectAnswer(e) {
 }
 
 
-function setStatusClass(element, correct) {
-    clearStatusClass(element);
-    if (correct) {
-        element.classList.add('correct');
-    } else {
-        element.classList.add('wrong');
-    }
-}
+// function setStatusClass(element, correct) {
+//     clearStatusClass(element);
+//     if (correct) {
+//         element.classList.add('correct');
+//     } else {
+//         element.classList.add('wrong');
+//     }
+// }
 
-function clearStatusClass(element) {
-    element.ClassList.remove('correct');
-    element.ClassList.remove('wrong');
-}
+// function clearStatusClass(element) {
+//     element.ClassList.remove('correct');
+//     element.ClassList.remove('wrong');
+// }
 
 const questions = [
     {
@@ -218,7 +218,16 @@ function showResults() {
 }
 
 startBtn.addEventListener('click', startQuiz);
-// submitBtn.addEventListener('click', () => {
-//     currentQuestionPos++;
-//     setQuestions();
-// })
+submitBtn.addEventListener('click', () => {
+    let initialEl = document.querySelector('#initials');
+
+    let playerScore = {
+        initial: initialEl.value,
+        highScore: score
+    };
+
+    // console.log(initialEl);
+    localStorage.setItem('playerScore', JSON.stringify(playerScore));
+    // currentQuestionPos++;
+    // setQuestions();
+})
