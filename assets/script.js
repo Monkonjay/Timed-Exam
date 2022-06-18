@@ -226,8 +226,9 @@ submitBtn.addEventListener('click', () => {
         highScore: score
     };
 
-    // console.log(initialEl);
+    // store playScore object in local storage
     localStorage.setItem('playerScore', JSON.stringify(playerScore));
+    submitBtn.classList.add('hide');
     // currentQuestionPos++;
     // setQuestions();
 })
