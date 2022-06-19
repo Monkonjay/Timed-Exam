@@ -6,6 +6,7 @@ var answerBtnEl = document.getElementById('answer-buttons');
 var startBtn = document.querySelector('#start_btn');
 var submitBtn =  document.querySelector('#submit_btn');
 var messageEl = document.getElementById('message');
+var highScoreEl =  document.querySelector('#high-score');
 
 // variable to keep tract score
 var scoreEl =  document.querySelector('#score');
@@ -232,3 +233,15 @@ submitBtn.addEventListener('click', () => {
     // currentQuestionPos++;
     // setQuestions();
 })
+
+let highScore = {};
+    
+function getHighScore() {
+    highScore = JSON.parse(localStorage.getItem('playerScore'));
+    return highScore
+
+    
+}
+
+getHighScore();
+console.log(highScore);
