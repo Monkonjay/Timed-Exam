@@ -8,6 +8,9 @@ var submitBtn =  document.querySelector('#submit_btn');
 var messageEl = document.getElementById('message');
 var highScoreEl =  document.querySelector('#high-score');
 
+
+var recordScore = [];
+
 // variable to keep tract score
 var scoreEl =  document.querySelector('#score');
 var score = 0;
@@ -137,20 +140,6 @@ function selectAnswer(e) {
 }
 
 
-// function setStatusClass(element, correct) {
-//     clearStatusClass(element);
-//     if (correct) {
-//         element.classList.add('correct');
-//     } else {
-//         element.classList.add('wrong');
-//     }
-// }
-
-// function clearStatusClass(element) {
-//     element.ClassList.remove('correct');
-//     element.ClassList.remove('wrong');
-// }
-
 const questions = [
     {
         question: 'Which of the following is not a keyword for javaScript variable declaration?',
@@ -226,22 +215,46 @@ submitBtn.addEventListener('click', () => {
         initial: initialEl.value,
         highScore: score
     };
+    //  get data back from local storage
+    recordScore = JSON.parse(localStorage.getItem('playerScore'));
+    // combines data from local storage and new data 
 
-    // store playScore object in local storage
-    localStorage.setItem('playerScore', JSON.stringify(playerScore));
+    if(recordScore) {
+        recordScore.push(playerScore);
+
+    } else {
+        recordScore = [playerScore];
+    }
+
+
+    // placed combined data back into local storage 
+    localStorage.setItem('playerScore', JSON.stringify(recordScore));
+    // recordScore.push(playerScore);
     submitBtn.classList.add('hide');
     // currentQuestionPos++;
     // setQuestions();
+    // return recordScore;
+
+    // i can console log recordScore within the function
+    console.log(recordScore);
+
 })
 
-let highScore = {};
-    
-function getHighScore() {
-    highScore = JSON.parse(localStorage.getItem('playerScore'));
-    return highScore
+
+    // i cannot console log recordScore outside the function
+    console.log(recordScore);
+
+
+
+
+
+// function getHighScore() {
+
+
+//     return recordScore
 
     
-}
+// }
 
-getHighScore();
-console.log(highScore);
+// getHighScore();
+
