@@ -216,7 +216,11 @@ submitBtn.addEventListener('click', () => {
         highScore: score
     };
     //  get data back from local storage
+
     recordScore = JSON.parse(localStorage.getItem('playerScore'));
+    // recordScore.push(savedScore);
+
+    // recordScore = JSON.parse(localStorage.getItem('playerScore'));
     // combines data from local storage and new data 
 
     if(recordScore) {
