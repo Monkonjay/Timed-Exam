@@ -11,7 +11,7 @@ var highScoreEl =  document.querySelector('#high-score');
 
 var recordScore = [];
 
-// variable to keep tract score
+// variable to keep tract of score
 var scoreEl =  document.querySelector('#score');
 var score = 0;
 
@@ -208,21 +208,55 @@ function showResults() {
 }
 
 startBtn.addEventListener('click', startQuiz);
-submitBtn.addEventListener('click', () => {
+
+
+// submitBtn.addEventListener('click', () => {
+//     let initialEl = document.querySelector('#initials');
+
+//     let playerScore = {
+//         initial: initialEl.value,
+//         highScore: score
+//     };
+
+//     //  get data back from local storage
+//     recordScore = JSON.parse(localStorage.getItem('playerScore'));
+//     // recordScore.push(savedScore);
+
+//     // combines data from local storage and new data 
+//     if(recordScore) {
+//         recordScore.push(playerScore);
+
+//     } else {
+//         recordScore = [playerScore];
+//     }
+
+
+//     // placed combined data back into local storage 
+//     localStorage.setItem('playerScore', JSON.stringify(recordScore));
+//     // recordScore.push(playerScore);
+//     submitBtn.classList.add('hide');
+
+
+//     // i can console log recordScore within the function
+//     console.log(recordScore);
+
+// })
+
+submitBtn.addEventListener('click', getRecordScore)
+
+function getRecordScore() {
     let initialEl = document.querySelector('#initials');
 
     let playerScore = {
         initial: initialEl.value,
         highScore: score
     };
-    //  get data back from local storage
 
+    //  get data back from local storage
     recordScore = JSON.parse(localStorage.getItem('playerScore'));
     // recordScore.push(savedScore);
 
-    // recordScore = JSON.parse(localStorage.getItem('playerScore'));
     // combines data from local storage and new data 
-
     if(recordScore) {
         recordScore.push(playerScore);
 
@@ -235,30 +269,23 @@ submitBtn.addEventListener('click', () => {
     localStorage.setItem('playerScore', JSON.stringify(recordScore));
     // recordScore.push(playerScore);
     submitBtn.classList.add('hide');
-    // currentQuestionPos++;
-    // setQuestions();
+
+    // console.log(recordScore);
     // return recordScore;
+    renderRecordScore(recordScore);
 
-    // i can console log recordScore within the function
-    console.log(recordScore);
-
-})
+}
 
 
-    // i cannot console log recordScore outside the function
-    console.log(recordScore);
+function renderRecordScore(data) {
+    // getRecordScore();
+    // console.log(data);
+    // console.log(data[0].initial + ':' + ' ' + data[0].highScore);
+    for(i = 0; i < data.length; i++) {
+        console.log(data[i].initial + ':' + ' ' + data[i].highScore);
+    }
+     
 
+    // console.log(renderRecordScore); 
 
-
-
-
-// function getHighScore() {
-
-
-//     return recordScore
-
-    
-// }
-
-// getHighScore();
-
+}
