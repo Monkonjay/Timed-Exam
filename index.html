@@ -14,9 +14,14 @@
     <div id="container">
         
         <h1 id="course-title">Quiz: Introduction to JavaScript</h1> 
-        <a href="#" id="high-score">View High Score</a>
+
+        <!-- Link to view high scores -->
+        <div id="score-record"></div>
+        <h3 id="high-score">View High Score</h3>
         <h2 id="countdown"></h2>
-        
+        <ol id="score-list" class="hide"></ol>
+       
+           
        
         <div id="question-wrapper" class="hide"> 
             <div id="question"></div>
@@ -41,7 +46,7 @@
         <div class="test_flow">
             <button id="start_btn" class="start-btn btn">Start Quiz</button> 
             <button id="submit_btn" class="submit-btn btn hide">Submit</button>
-          
+            <button id="retake_btn" class="retake-btn btn hide">Retake</button>
         </div>
 
         <div id="message"></div>

@@ -1,31 +1,42 @@
 // declare global variables for targeted elements
-var timerEl = document.getElementById('countdown');
-var questionWrapperEl = document.getElementById('question-wrapper');
-var questionEl = document.getElementById('question');
-var answerBtnEl = document.getElementById('answer-buttons');
-var startBtn = document.querySelector('#start_btn');
-var submitBtn =  document.querySelector('#submit_btn');
-var messageEl = document.getElementById('message');
-var highScoreEl =  document.querySelector('#high-score');
+let timerEl = document.getElementById('countdown');
+let questionWrapperEl = document.getElementById('question-wrapper');
+let questionEl = document.getElementById('question');
+let answerBtnEl = document.getElementById('answer-buttons');
+let startBtn = document.querySelector('#start_btn');
+let submitBtn =  document.querySelector('#submit_btn');
+let messageEl = document.getElementById('message');
+let highScoreEl =  document.querySelector('#high-score');
+let scoreList = document.querySelector('#score-list');
+let scorRecordEl = document.querySelector('#score-record');
+let refreshBtn = document.querySelector('#retake_btn');
+let clearBtn = document.querySelector('#clear_score_btn');
+let initialDivEl = document.querySelector('#collect-initials');
 
-
-var recordScore = [];
+let yourScore = document.createElement('h2');
+let recordScore = [];
 
 // variable to keep tract of score
-var scoreEl =  document.querySelector('#score');
-var score = 0;
+let scoreEl =  document.querySelector('#score');
+let score = 0;
 
 // declare varibles to shuffle questions and determine question index
 let randomizeQuestions, currentQuestionPos;
 
 // set quiz duration in minutes then convert to seconds
 const quizDuration = 0.75;
-var timeLeft = quizDuration * 60;
+let timeLeft = quizDuration * 60;
+
+
+// let playerScore = {
+//     initial: initialEl.value,
+//     highScore: score
+// };
 
 // use setInterval for countdown
 function countdown() {
 
-    var timeInterval = setInterval(function() {
+    let timeInterval = setInterval(function() {
         timeLeft--;
         const minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
@@ -92,21 +103,18 @@ function selectAnswer(e) {
     // const buttonChoice = e.target.value;
     // console.log(e);
     const correct = e.target.dataset.correct;
-    var feedback = document.createElement('h2');
+    let feedback = document.createElement('h2');
     // var message = "";
 
     // chkAnswer
     if(correct==="true") {
         score += 2;
         feedback.innerText = ("Correct!");
-        // console.log(`your score is ${score}`);
-        // messageEl.appendChild(chk);
         
     }else {
         feedback.innerText = ("Wrong");
         // add 10 second penalty for wrong answer
-        timeLeft -= 10;
-        // messageEl.appendChild(chk);
+        timeLeft -= 10; 
     }
     // console.log(message);
     messageEl.appendChild(feedback);
@@ -116,8 +124,6 @@ function selectAnswer(e) {
     },500);
    
 
-
-
     if (randomizeQuestions.length > currentQuestionPos + 1) {
         currentQuestionPos++;
         setTimeout(setQuestions, 500); 
@@ -125,18 +131,6 @@ function selectAnswer(e) {
     } else {
         showResults();
     }
-
-
-    // setStatusClass(document.body, correct);
-    // Array.from(answerBtnEl.children).forEach(button => {
-    //     setStatusClass(button, button.dataset.correct)
-    // })
-    // if (randomizeQuestions.length >currentQuestionPos + 1) {
-    //     submitBtn.classList.remove('hide');
-    // } else {
-    //     submitBtn.innerText = 'Restart';
-   
-    // }
 }
 
 
@@ -195,10 +189,9 @@ const questions = [
 function showResults() {
     questionWrapperEl.classList.add('hide');
     timerEl.classList.add('hide');
-    var yourScore = document.createElement('h2');
+    // let yourScore = document.createElement('h2');
     yourScore.innerText = `Your Total Score:  ${score}/10`;
     // console.log(yourScore.innerText);
-    
     
     scoreEl.appendChild(yourScore);
     let initialEl = document.querySelector('#collect-initials')
@@ -207,46 +200,14 @@ function showResults() {
 
 }
 
+// buttons event listeners
 startBtn.addEventListener('click', startQuiz);
-
-
-// submitBtn.addEventListener('click', () => {
-//     let initialEl = document.querySelector('#initials');
-
-//     let playerScore = {
-//         initial: initialEl.value,
-//         highScore: score
-//     };
-
-//     //  get data back from local storage
-//     recordScore = JSON.parse(localStorage.getItem('playerScore'));
-//     // recordScore.push(savedScore);
-
-//     // combines data from local storage and new data 
-//     if(recordScore) {
-//         recordScore.push(playerScore);
-
-//     } else {
-//         recordScore = [playerScore];
-//     }
-
-
-//     // placed combined data back into local storage 
-//     localStorage.setItem('playerScore', JSON.stringify(recordScore));
-//     // recordScore.push(playerScore);
-//     submitBtn.classList.add('hide');
-
-
-//     // i can console log recordScore within the function
-//     console.log(recordScore);
-
-// })
-
 submitBtn.addEventListener('click', getRecordScore)
 
 function getRecordScore() {
+    
     let initialEl = document.querySelector('#initials');
-
+    // making global variable
     let playerScore = {
         initial: initialEl.value,
         highScore: score
@@ -263,29 +224,46 @@ function getRecordScore() {
     } else {
         recordScore = [playerScore];
     }
-
-
     // placed combined data back into local storage 
     localStorage.setItem('playerScore', JSON.stringify(recordScore));
     // recordScore.push(playerScore);
     submitBtn.classList.add('hide');
-
-    // console.log(recordScore);
-    // return recordScore;
     renderRecordScore(recordScore);
-
 }
 
 
 function renderRecordScore(data) {
-    // getRecordScore();
-    // console.log(data);
-    // console.log(data[0].initial + ':' + ' ' + data[0].highScore);
+
+    let scoreRecordTag = document.createElement("h3");
+    scoreRecordTag.innerText = "Recorded High Scores"
+    scorRecordEl.appendChild(scoreRecordTag);
+
+
     for(i = 0; i < data.length; i++) {
-        console.log(data[i].initial + ':' + ' ' + data[i].highScore);
+        let initScore = data[i]
+
+        // create list item to append to ordered list
+        let li = document.createElement("li");
+        
+        li.textContent = initScore.initial + ':' + ' ' + initScore.highScore + '/10';
+        li.setAttribute("data-index", i);
+        scoreList.appendChild(li);      
     }
-     
 
-    // console.log(renderRecordScore); 
+    refreshBtn.classList.remove('hide');
+    scoreList.classList.remove('hide');     
+    highScoreEl.classList.add('hide'); 
+    initialDivEl.classList.add('hide'); 
+    yourScore.innerText = " ";
 
+    // refresh the page after 7 seconds
+    setTimeout(function() { 
+        window.location.reload();
+    },5000);
+
+    // renderRecordScore();
 }
+
+refreshBtn.addEventListener('click', function () {
+  window.location.reload();
+});
