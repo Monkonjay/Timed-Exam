@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Note Taker
 
 ## Table of contents
@@ -85,3 +86,6 @@ if (timeLeft <= 0) {
 
 - Website - [Robert M Greene]( https://monkonjay.github.io/Portfolio/)
 - Github - [Monkonjay](https://github.com/Monkonjay)
+=======
+[ReadME.docx](https://github.com/Monkonjay/Timed-Exam/files/8964514/ReadME.docx)
+>>>>>>> 48a4e9115d2370733e4b7df4b671edeb7590c161
